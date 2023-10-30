@@ -1,20 +1,51 @@
+<!DOCTYPE html>
 <html lang="ja">
   <head>
-    <title>GAS Form</title>
+    <title>病害虫アンケートフォーム</title>
     <style>
-      body{ width: 100 start; height: 100vh; display: flex; flex-direction: row; }
-      #left{ background-color: #ffeeee; width: 50%; display: flex; flex-direction: column; align-items: center; justify-content: start; } 
+      body{ width: 100vw; height: 100vh; display: flex; flex-direction: row; 
+           background-color: #ffeeee; width: 50%; display: flex; flex-direction: column; align-items: center; justify-content: start; }
     </style>
     <script>
+     function getCurrentPosi() {
+      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    };  //   -----------
+    // getCurrentPosition で現在の位置情報を取得
+    function successCallback(position) {
+      var gl_text = "緯度：" + position.coords.latitude + "度<br>";
+      gl_text += "経度：" + position.coords.longitude + "度<br>";
+      gl_text += "高度：" + position.coords.altitude + "<br>";
+      gl_text += "位置の誤差：" + position.coords.accuracy + "m<br>";
+      gl_text += "高度の誤差：" + position.coords.altitudeAccuracy + "<br>";
+      gl_text += "方角：" + position.coords.heading + "<br>";
+      gl_text += "速度：" + position.coords.speed + "<br>";
+      document.getElementById("show_result").innerHTML = gl_text;
+    };  //   -----------
+    // 位置情報が取得できない場合
+    function errorCallback(error) {
+      var err_msg = "";
+      switch(error.code){  
+        case 1:
+          err_msg = "位置情報の利用が許可されていません";
+          break;
+        case 2:
+          err_msg = "デバイスの位置が判定できません";
+          break;
+        case 3:
+          err_msg = "タイムアウトしました";
+          break;
+      }
+      document.getElementById("show_result").innerHTML = err_msg;
+    };
       function OnPost(){
 
-        const URL = "https://script.google.com/macros/s/AKfycbwToOUXf_dkOrh1ACgK_5-UvCvslVTFpQfG79ZMICajK6g-ipodMjKbv2kXPIhkvaXR/exec";
+        const URL = "https://script.google.com/macros/s/AKfycbzx-oSmUHlNvuPrqjnhrY3FAIyE5fyItz4CUkmJ1N0mbVsxQ9WE27cqmcfVZWIH6lBV/exec";
 
         let SendDATA = {
           "column_1" : document.getElementById("column_1").value,
           "column_2" : document.getElementById("column_2").value,
-          "column_3" : document.getElementById("column_3").value
-          
+          "column_3" : document.getElementById("column_3").value,
+          "column_4" : document.getElementById("column_4").value
         };
         let postparam = {
           "method" : "POST",
@@ -24,40 +55,25 @@
         };
         fetch(URL, postparam);
       }
-      function OnGet(){
-
-        const URL = "https://script.google.com/macros/s/AKfycbwToOUXf_dkOrh1ACgK_5-UvCvslVTFpQfG79ZMICajK6g-ipodMjKbv2kXPIhkvaXR/exec";
-
-        fetch(URL)
-        .then(response => {
-          return response.json();
-        })
-        .then(data => {
-          render_text = data.message;
-          document.getElementById("get_value").innerHTML = render_text;
-        })
-        .catch(error => {
-          document.getElementById("get_value").innerHTML = error;
-        });
-      }
     </script>
-     
   </head>
   <body>
     <div id="left">
-      <h1>アンケート</h1>
-      <p>氏名</p>
+      <h1>病害虫アンケートフォーム</h1>
+      <p>病害虫等を運ぶ虫や鳥</p>
       <input type="text" id="column_1">
-      <p>病害虫を運ぶ鳥や虫</p>
+      <p>備考</p>
       <input type="text" id="column_2">
-      <p>お問い合わせ内容</p>
+      <p>地域</p>
       <input type="text" id="column_3">
-      
+      <p>aaa</p>
+      <input type="text" id="column_4">
+
       <form action="success.html">
-      <button style="margin-top: 20px;" input type="submit"onclick="OnPost();">送信</button>
-    
-      </form>
+        <input type="button" value="現在地を確認" onclick="getCurrentPosi()">
+        <button style="margin-top: 20px;" input type="submit"onclick="OnPost()">送信</button>
+       </form>
+       
+      </div>
     </div>
-      
-  </body>
-</html>
+  </body> 
