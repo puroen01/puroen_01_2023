@@ -1,79 +1,115 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <title>病害虫アンケートフォーム</title>
-    <style>
-      body{ width: 100vw; height: 100vh; display: flex; flex-direction: row; 
+<head>
+<title>病害虫アンケートフォーム</title>
+<style>
+      body{ width: 100vw; height: 100vh; display: flex; flex-direction: row;
            background-color: #ffeeee; width: 50%; display: flex; flex-direction: column; align-items: center; justify-content: start; }
-    </style>
-    <script>
-     function getCurrentPosi() {
-      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-    };  //   -----------
-    // getCurrentPosition で現在の位置情報を取得
-    function successCallback(position) {
-      var gl_text = "緯度：" + position.coords.latitude + "度<br>";
-      gl_text += "経度：" + position.coords.longitude + "度<br>";
-      gl_text += "高度：" + position.coords.altitude + "<br>";
-      gl_text += "位置の誤差：" + position.coords.accuracy + "m<br>";
-      gl_text += "高度の誤差：" + position.coords.altitudeAccuracy + "<br>";
-      gl_text += "方角：" + position.coords.heading + "<br>";
-      gl_text += "速度：" + position.coords.speed + "<br>";
-      document.getElementById("show_result").innerHTML = gl_text;
-    };  //   -----------
-    // 位置情報が取得できない場合
-    function errorCallback(error) {
-      var err_msg = "";
-      switch(error.code){  
-        case 1:
-          err_msg = "位置情報の利用が許可されていません";
-          break;
-        case 2:
-          err_msg = "デバイスの位置が判定できません";
-          break;
-        case 3:
-          err_msg = "タイムアウトしました";
-          break;
-      }
-      document.getElementById("show_result").innerHTML = err_msg;
-    };
-      function OnPost(){
+</style>
+<meta charset="utf-8">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+<title>現在地に近い順に都道府県をソート</title>
+<script>
+function OnPost(){
 
-        const URL = "https://script.google.com/macros/s/AKfycbzx-oSmUHlNvuPrqjnhrY3FAIyE5fyItz4CUkmJ1N0mbVsxQ9WE27cqmcfVZWIH6lBV/exec";
+      const URL = "https://script.google.com/macros/s/AKfycbzx-oSmUHlNvuPrqjnhrY3FAIyE5fyItz4CUkmJ1N0mbVsxQ9WE27cqmcfVZWIH6lBV/exec";
 
-        let SendDATA = {
-          "column_1" : document.getElementById("column_1").value,
-          "column_2" : document.getElementById("column_2").value,
-          "column_3" : document.getElementById("column_3").value,
-          "column_4" : document.getElementById("column_4").value
-        };
-        let postparam = {
-          "method" : "POST",
-          "mode" : "no-cors",
-          "Content-Type" : "application/x-www-form-urlencoded",
-          "body" : JSON.stringify(SendDATA)
-        };
-        fetch(URL, postparam);
-      }
-    </script>
-  </head>
-  <body>
-    <div id="left">
-      <h1>病害虫アンケートフォーム</h1>
-      <p>病害虫等を運ぶ虫や鳥</p>
-      <input type="text" id="column_1">
-      <p>備考</p>
-      <input type="text" id="column_2">
-      <p>地域</p>
-      <input type="text" id="column_3">
-      <p>aaa</p>
-      <input type="text" id="column_4">
+      let SendDATA = {
+        "column_1" : document.getElementById("column_1").value,
+        "column_2" : document.getElementById("column_2").value,
+        "column_3" : document.getElementById("column_3").value,
+        "column_4" : document.getElementById("column_4").value
+      };
+      let postparam = {
+        "method" : "POST",
+        "mode" : "no-cors",
+        "Content-Type" : "application/x-www-form-urlencoded",
+        "body" : JSON.stringify(SendDATA)
+      };
+      fetch(URL, postparam);
+    }
 
+$(function() {
+  var prefs = [
+    ['北海道', 43.03, 141.21],
+    ['青森県', 40.49, 140.44],
+    ['岩手県', 39.42, 141.09],
+    ['宮城県', 38.16, 140.52],
+    ['秋田県', 39.43, 140.06],
+    ['山形県', 38.15, 140.20],
+    ['福島県', 37.45, 140.28],
+    ['茨城県', 36.22, 140.28],
+    ['栃木県', 36.33, 139.53],
+    ['群馬県', 36.23, 139.03],
+    ['埼玉県', 35.51, 139.38],
+    ['千葉県', 35.36, 140.06],
+    ['東京都', 35.41, 139.45],
+    ['神奈川県', 35.26, 139.38],
+    ['新潟県', 37.55, 139.02],
+    ['富山県', 36.41, 137.13],
+    ['石川県', 36.33, 136.39],
+    ['福井県', 36.03, 136.13],
+    ['山梨県', 35.39, 138.34],
+    ['長野県', 36.39, 138.11],
+    ['岐阜県', 35.25, 136.45],
+    ['静岡県', 34.58, 138.23],
+    ['愛知県', 35.11, 136.54],
+    ['三重県', 34.43, 136.30],
+    ['滋賀県', 35.00, 135.52],
+    ['京都府', 35.00, 135.46],
+    ['大阪府', 34.41, 135.29],
+    ['兵庫県', 34.41, 135.11],
+    ['奈良県', 34.41, 135.48],
+    ['和歌山県', 34.14, 135.10],
+    ['鳥取県', 35.29, 134.13],
+    ['島根県', 35.27, 133.04],
+    ['岡山県', 34.39, 133.54],
+    ['広島県', 34.23, 132.27],
+    ['山口県', 34.11, 131.27],
+    ['徳島県', 34.03, 134.32],
+    ['香川県', 34.20, 134.02],
+    ['愛媛県', 33.50, 132.44],
+    ['高知県', 33.33, 133.31],
+    ['福岡県', 33.35, 130.23],
+    ['佐賀県', 33.16, 130.16],
+    ['長崎県', 32.45, 129.52],
+    ['熊本県', 32.48, 130.42],
+    ['大分県', 33.14, 131.37],
+    ['宮崎県', 31.56, 131.25],
+    ['鹿児島県', 31.36, 130.33],
+    ['沖縄県', 26.13, 127.41]
+  ];
+
+  navigator.geolocation.getCurrentPosition(function(pos) {
+    var lat = pos.coords.latitude;
+    var long = pos.coords.longitude;
+    $.each(prefs, function(i, p) {
+      p[3] = (lat - p[1]) * (lat - p[1]) + (long - p[2]) * (long - p[2]);
+    });
+    prefs.sort(function(p1, p2) {
+      return p1[3] - p2[3];
+    });
+    $.each(prefs, function(i, p) {
+      $('<option></option>').html(p[0]).appendTo('#pref');
+    });
+  });
+});
+</script>
+</head>
+<body>
+  <div id="left">
+        <h1>病害虫アンケートフォーム</h1>
+        <p>病害虫等を運ぶ虫や鳥</p>
+        <input type="text" id="column_1">
+        <p>電話番号(任意)</p>
+        <input type="text" id="column_2">
+        <p>備考(任意)</p>
+        <input type="text" id="column_3">
+        <p>お住まいの地域</p>
+        <select id="pref"></select>
       <form action="success.html">
-        <input type="button" value="現在地を確認" onclick="getCurrentPosi()">
         <button style="margin-top: 20px;" input type="submit"onclick="OnPost()">送信</button>
-       </form>
-       
-      </div>
+      </form>
     </div>
-  </body> 
+</body>
+</html>
