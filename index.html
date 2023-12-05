@@ -1,10 +1,32 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <title>questionnaire Form</title>
+    <title>病害虫アンケート</title>
     <style>
       body{ width: 100vw; height: 100vh; display: flex; flex-direction: row;
            background-color: #ffeeee; width: 50%; display: flex; flex-direction: column; align-items: center; justify-content: start; }
+           select{
+           width:400px;
+           height:80px;
+           font-size: 50px;
+         }
+         select, option{
+      border-radius: 20px;
+      padding:5px 10px;
+    }
+    input{
+    width:400px;
+    height:80px;
+    font-size: 50px;
+  }
+  textarea{
+  font-size: 50px;
+  }
+  button {
+    width: 7em;
+    height:3em;
+    font-size: 40px;
+  }
     </style>
     <script>
       function OnPost(){
@@ -57,9 +79,22 @@
         ['栃木県', 36.33, 139.53],
         ['群馬県', 36.23, 139.03],
         ['埼玉県', 35.51, 139.38],
+        ['さいたま', 35.861, 139.645],
+        ['越谷', 35.890, 139.790],
+        ['熊谷', 36.147, 139.388],
+        ['秩父', 35.991, 139.085],
         ['千葉県', 35.36, 140.06],
-        ['東京都', 35.41, 139.45],
-        ['神奈川県', 35.26, 139.38],
+        ['八王子', 35.666, 139.316],
+        ['青梅', 35.787, 139.275],
+        ['町田', 35.546, 139.438],
+        ['23区内', 35.693, 139.703],
+        ['茅ヶ崎', 35.333, 139.403],
+        ['大和', 35.487, 139.457],
+        ['厚木', 35.443, 139.362],
+      　['相模原', 35.571, 139.373],
+      　['横浜', 35.450, 139.634],
+    　  ['川崎', 35.530, 139.703],
+        ['秦野', 35.374, 139.220],
         ['新潟県', 37.55, 139.02],
         ['富山県', 36.41, 137.13],
         ['石川県', 36.33, 136.39],
@@ -116,27 +151,41 @@
   </head>
   <body>
     <div id="left">
-      <h1>アンケート</h1>
-      <p>病害虫名</p><select class="chosen-select" id="column_1">
+      <h1>アンケートお願いします。</h1>
+      <p><font size="6"> 病害虫名</font></p><select class="chosen-select" id="column_1">
         <option value="">入力してください</option>
-        <option value="ハエ">ハエ</option>
-        <option value="へび">蛇</option>
-        <option value="か">蚊</option>
-        <option value="いもり">イモリ</option>
-        <option value="いのしし">イノシシ</option>
+        <option value="うどんこ病">うどんこ病</option>
+        <option value="ナミハダニ">ナミハダニ</option>
+        <option value="青枯病">青枯病</option>
+        <option value="マメハモグリバエ">マメハモグリバエ</option>
+        <option value="ハスモンヨトウ">ハスモンヨトウ</option>
+        <option value="ヨトウガ">ヨトウガ</option>
+        <option value="モモアカアブラムシ">モモアカアブラムシ</option>
+        <option value="ミカンキイロアザミウマ">ミカンキイロアザミウマ</option>
+        <option value="褐色円星病">褐色円星病</option>
+        <option value="ワタアブラムシ">ワタアブラムシ</option>
+        <option value="オンシツコナジラミ">オンシツコナジラミ</option>
+        <option value="タバココナジラミ">タバココナジラミ</option>
+        <option value="褐斑病">褐斑病</option>
+        <option value="炭疽病">炭疽病</option>
+        <option value="萎黄病">萎黄病</option>
+        <option value="すすかび病">すすかび病</option>
+        <option value="葉かび病">葉かび病</option>
         <option value="その他">その他</option>
-      </select>  <script>
+      </select><br>  <script>
           $('.chosen-select').chosen();
         </script>
-      <p>備考(任意)</p>
-      <input type="text" id="column_2">
-      <p>電話番号(任意)</p>
-      <input type="text" id="column_3">
-      <p>位置情報(正しいかご確認お願いします)</p>
+      <p><font size="6"> 備考(任意)</font></p>
+      <textarea name="a" id="column_2" rows="2"></textarea><br>
+      <p><font size="6"> 電話番号(任意)</font></p>
+      <input type="tel" id="column_3"><br>
+      <p><font size="6"> 位置情報(正しいかご確認お願いします)</font></p>
       <select id="column_4"></select>
 
+      <br><br>
+
         <button style="margin-top: 20px;" onclick="OnPost();">送信</button>
-    
+
 
     </div>
 
