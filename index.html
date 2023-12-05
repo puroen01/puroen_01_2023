@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <title>病害虫アンケート</title>
+    <title>GAS Form</title>
     <style>
       body{ width: 100vw; height: 100vh; display: flex; flex-direction: row;
            background-color: #ffeeee; width: 50%; display: flex; flex-direction: column; align-items: center; justify-content: start; }
@@ -10,13 +10,12 @@
       function OnPost(){
 
         const URL = "https://script.google.com/macros/s/AKfycbwpkrK9uFXvxf-6Nr5lDElbEb2g9HjqnqgLvCoxRlM8m2K8AMMK48bfrbKga03BVuq5/exec";
-                    //↑GASで取得したスプレッドシートのURL
+
         let SendDATA = {
           "column_1" : document.getElementById("column_1").value,
           "column_2" : document.getElementById("column_2").value,
           "column_3" : document.getElementById("column_3").value,
-          "column_4" : document.getElementById("column_4").value 　
-          //column_4だと上3つのデータもスプレッドシートへいかなくなってしまうのでとりあえず変えました。
+          "column_4" : document.getElementById("column_4").value
         };
         let postparam = {
           "method" : "POST",
@@ -26,46 +25,90 @@
         };
         fetch(URL, postparam);
       }
+      function OnGet(){
 
-    </script>
-    <script>
+        const URL = "https://script.google.com/macros/s/AKfycbwpkrK9uFXvxf-6Nr5lDElbEb2g9HjqnqgLvCoxRlM8m2K8AMMK48bfrbKga03BVuq5/exec";
 
-    var options = {
-      enableHighAccuracy: true,
-      timeout: 1000,
-      maximumAge: 0
-    };
-
-    function getLocationPromise () {
-        return new Promise((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(resolve, reject, options);
+        fetch(URL)
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          render_text = data.message;
+          document.getElementById("get_value").innerHTML = render_text;
+        })
+        .catch(error => {
+          document.getElementById("get_value").innerHTML = error;
         });
-    }
-
-    function error(err) {
-      console.warn(`ERROR(${err.code}): ${err.message}`);
-    }
-
-    async function spot (){
-        console.time('time to get location');
-
-        const position = await getLocationPromise();
-        console.log('position:',position);
-
-        document.getElementById("lat").innerHTML = 'Lat: ' + position.coords.latitude;
-        document.getElementById("lng").innerHTML = 'Lng: ' + position.coords.longitude;
-        document.getElementById("acc").innerHTML = 'Accuracy of position: ' + position.coords.accuracy;
-        document.getElementById("alt").innerHTML = 'Altitude: ' + position.coords.altitude;
-        document.getElementById("altAcc").innerHTML = 'Altitude Accuracy: ' + position.coords.altitudeAccuracy;
-        document.getElementById("heading").innerHTML = 'Heading: ' + position.coords.heading;
-        document.getElementById("speed").innerHTML = 'Speed: ' + position.coords.speed;
-        document.getElementById("timestamp").innerHTML = 'Timestamp: ' + position.timestamp;
-
-        console.timeEnd('time to get location');
-    }
-
+      }
     </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+    <script>
+    $(function() {
+      var prefs = [
+        ['北海道', 43.03, 141.21],
+        ['青森県', 40.49, 140.44],
+        ['岩手県', 39.42, 141.09],
+        ['宮城県', 38.16, 140.52],
+        ['秋田県', 39.43, 140.06],
+        ['山形県', 38.15, 140.20],
+        ['福島県', 37.45, 140.28],
+        ['茨城県', 36.22, 140.28],
+        ['栃木県', 36.33, 139.53],
+        ['群馬県', 36.23, 139.03],
+        ['埼玉県', 35.51, 139.38],
+        ['千葉県', 35.36, 140.06],
+        ['東京都', 35.41, 139.45],
+        ['神奈川県', 35.26, 139.38],
+        ['新潟県', 37.55, 139.02],
+        ['富山県', 36.41, 137.13],
+        ['石川県', 36.33, 136.39],
+        ['福井県', 36.03, 136.13],
+        ['山梨県', 35.39, 138.34],
+        ['長野県', 36.39, 138.11],
+        ['岐阜県', 35.25, 136.45],
+        ['静岡県', 34.58, 138.23],
+        ['愛知県', 35.11, 136.54],
+        ['三重県', 34.43, 136.30],
+        ['滋賀県', 35.00, 135.52],
+        ['京都府', 35.00, 135.46],
+        ['大阪府', 34.41, 135.29],
+        ['兵庫県', 34.41, 135.11],
+        ['奈良県', 34.41, 135.48],
+        ['和歌山県', 34.14, 135.10],
+        ['鳥取県', 35.29, 134.13],
+        ['島根県', 35.27, 133.04],
+        ['岡山県', 34.39, 133.54],
+        ['広島県', 34.23, 132.27],
+        ['山口県', 34.11, 131.27],
+        ['徳島県', 34.03, 134.32],
+        ['香川県', 34.20, 134.02],
+        ['愛媛県', 33.50, 132.44],
+        ['高知県', 33.33, 133.31],
+        ['福岡県', 33.35, 130.23],
+        ['佐賀県', 33.16, 130.16],
+        ['長崎県', 32.45, 129.52],
+        ['熊本県', 32.48, 130.42],
+        ['大分県', 33.14, 131.37],
+        ['宮崎県', 31.56, 131.25],
+        ['鹿児島県', 31.36, 130.33],
+        ['沖縄県', 26.13, 127.41]
+      ];
 
+      navigator.geolocation.getCurrentPosition(function(pos) {
+        var lat = pos.coords.latitude;
+        var long = pos.coords.longitude;
+        $.each(prefs, function(i, p) {
+          p[3] = (lat - p[1]) * (lat - p[1]) + (long - p[2]) * (long - p[2]);
+        });
+        prefs.sort(function(p1, p2) {
+          return p1[3] - p2[3];
+        });
+        $.each(prefs, function(i, p) {
+          $('<option></option>').html(p[0]).appendTo('#column_4');
+        });
+      });
+    });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
@@ -73,9 +116,8 @@
   </head>
   <body>
     <div id="left">
-      <h1>病害虫アンケート</h1>
-      <p>病害虫名</p>
-      <select class="chosen-select" id="column_1">
+      <h1>アンケート</h1>
+      <p>病害虫名</p><select class="chosen-select" id="column_1">
         <option value="">入力してください</option>
         <option value="ハエ">ハエ</option>
         <option value="へび">蛇</option>
@@ -83,30 +125,18 @@
         <option value="いもり">イモリ</option>
         <option value="いのしし">イノシシ</option>
         <option value="その他">その他</option>
-      </select>  
-      <script>
+      </select>  <script>
           $('.chosen-select').chosen();
         </script>
       <p>備考(任意)</p>
       <input type="text" id="column_2">
       <p>電話番号(任意)</p>
       <input type="text" id="column_3">
-
-      <p>位置情報</p>
-      <div class="flex-container">
-          <button class="center waves-effect waves-light btn blue" onclick="spot()">Get Location</button>
-          <input type=""id="column_4">
-      </div>
-      <div class="output" id="column_4">
-          <div id="lat"></div>
-          <div id="lng"></div>
-
-      </div>
-
+      <p>位置情報(正しいかご確認お願いします)</p>
+      <select id="column_4"></select>
 
         <button style="margin-top: 20px;" onclick="OnPost();">送信</button>
-
-
+    
 
     </div>
 
