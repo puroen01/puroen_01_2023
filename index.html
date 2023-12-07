@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <title>病害虫アンケート</title>
+    <title>病害虫調査</title>
     <style>
-      body{ width: 100vw; height: 100vh; display: flex; flex-direction: row;
-           background-color: #ffeeee; width: 50%; display: flex; flex-direction: column; align-items: center; justify-content: start; }
-
+      body{font-size: large; width: 100vw; height:100vh; display: flex; flex-direction: row; 
+           background-color: #ffeeee; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: start; }
+      
+           .s1{font-weight: bold; font-size: large;}
     </style>
     <script>
       function OnPost(){
@@ -47,33 +48,24 @@
     <script>
     $(function() {
       var prefs = [
-        ['北海道', 43.03, 141.21],
-        ['青森県', 40.49, 140.44],
-        ['岩手県', 39.42, 141.09],
-        ['宮城県', 38.16, 140.52],
-        ['秋田県', 39.43, 140.06],
-        ['山形県', 38.15, 140.20],
-        ['福島県', 37.45, 140.28],
-        ['茨城県', 36.22, 140.28],
-        ['栃木県', 36.33, 139.53],
-        ['群馬県', 36.23, 139.03],
-        ['埼玉県', 35.51, 139.38],
-        ['さいたま', 35.861, 139.645],
-        ['越谷', 35.890, 139.790],
-        ['熊谷', 36.147, 139.388],
-        ['秩父', 35.991, 139.085],
-        ['千葉県', 35.36, 140.06],
-        ['八王子', 35.666, 139.316],
-        ['青梅', 35.787, 139.275],
-        ['町田', 35.546, 139.438],
-        ['23区内', 35.693, 139.703],
-        ['茅ヶ崎', 35.333, 139.403],
-        ['大和', 35.487, 139.457],
-        ['厚木', 35.443, 139.362],
-      　['相模原', 35.571, 139.373],
-      　['横浜', 35.450, 139.634],
-    　  ['川崎', 35.530, 139.703],
-        ['秦野', 35.374, 139.220],
+        ['横浜市', 35.422175, 139.673702],
+        ['川崎市', 35.49719, 139.753955],
+        ['相模原市', 35.55588, 139.397116],
+        ['横須賀市', 35.206801, 139.617916],
+        ['平塚市', 35.320696, 139.370693],
+        ['鎌倉市', 35.320847, 139.497922],
+        ['藤沢市', 35.335188, 139.497169],
+        ['小田原市', 35.248714, 139.12328],
+        ['茅ヶ崎市', 35.328485, 139.375121],
+        ['逗子市', 35.281544, 139.610675],
+        ['三浦市', 35.172833, 139.628053],
+        ['秦野市', 35.361692, 35.361692],
+        ['厚木市', 35.415655, 139.352386],
+        ['大和市', 35.507309, 139.4337],
+        ['伊勢市', 35.42717, 139.246068],
+        ['海老名市', 35.449496, 139.382276],
+        ['座間市', 35.501027, 139.414615],
+
         ['新潟県', 37.55, 139.02],
         ['富山県', 36.41, 137.13],
         ['石川県', 36.33, 136.39],
@@ -130,43 +122,41 @@
   </head>
   <body>
     <div id="left">
-      <h1>アンケート</h1>
-      <p><font size="7"> 病害虫名</font></p><select class="chosen-select" id="column_1">
+      <h1>病害虫調査</h1>
+      <p class="s1">・病害虫を運ぶ鳥や虫<br>　※すべてカタカナ回答</p><select class="chosen-select" id="column_1">
         <option value="">入力してください</option>
-        <option value="うどんこ病">うどんこ病</option>
-        <option value="ナミハダニ">ナミハダニ</option>
-        <option value="青枯病">青枯病</option>
-        <option value="マメハモグリバエ">マメハモグリバエ</option>
-        <option value="ハスモンヨトウ">ハスモンヨトウ</option>
-        <option value="ヨトウガ">ヨトウガ</option>
-        <option value="モモアカアブラムシ">モモアカアブラムシ</option>
-        <option value="ミカンキイロアザミウマ">ミカンキイロアザミウマ</option>
-        <option value="褐色円星病">褐色円星病</option>
-        <option value="ワタアブラムシ">ワタアブラムシ</option>
-        <option value="オンシツコナジラミ">オンシツコナジラミ</option>
-        <option value="タバココナジラミ">タバココナジラミ</option>
-        <option value="褐斑病">褐斑病</option>
-        <option value="炭疽病">炭疽病</option>
-        <option value="萎黄病">萎黄病</option>
-        <option value="すすかび病">すすかび病</option>
-        <option value="葉かび病">葉かび病</option>
+        <option value="アリ">アリ</option>
+        <option value="カタツムリ">カタツムリ</option>
+        <option value="タカラダニ">タカラダニ</option>
+        <option value="ゴキブリ">ゴキブリ</option>
+        <option value="バッタ">バッタ</option>
+        <option value="毛虫">ケムシ</option>
+        <option value="スズメ">スズメ</option>
+        <option value="ツバメ">ツバメ</option>
+        <option value="カラス">カラス</option>
+        <option value="ハト">ハト</option>
+        <option value="カモメ">カモメ</option>
+        <option value="ムクドリ">ムクドリ</option>
+        <option value="コウモリ">コウモリ</option>
+        <option value="犬">イヌ</option>
+        <option value="猫">ネコ</option>
+        <option value="ウサギ">ウサギ</option>
         <option value="その他">その他</option>
       </select><br>  <script>
           $('.chosen-select').chosen();
         </script>
-      <p><font size="7"> 備考(任意)</font></p>
+      <p class="s1">・備考(任意)</p>
       <textarea name="a" id="column_2" rows="2"></textarea><br>
-      <p><font size="7"> 電話番号(任意)</font></p>
-      <input type="tel" id="column_3"><br>
-      <p><font size="7"> 位置情報(正しいかご確認お願いします)</font></p>
-      <select id="column_4"></select>
-
+      <p class="s1">・電話番号(任意)</p>
+      <input type="tel" inputmode="tel" style="height: 25px;" placeholder="080-1234-5678" id="column_3"><br>
+      <p class="s1">・位置情報<br>　※正しくない場合は以下からお選びください。</p>
+      <select id="column_4" style="width: 120px; height: 25px;"></select>
       <br><br>
-
-        <button style="margin-top: 20px;" onclick="OnPost();">送信</button>
+        <button style="margin-top: 30px;"  onclick="OnPost();">送信</button>
 
 
     </div>
 
   </body>
 </html>
+
